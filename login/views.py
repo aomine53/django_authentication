@@ -1,23 +1,24 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
-def login(request):
+def login_view(request):
     message = ""
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
-        user = authenticate(username = username, password = password)
+        user = authenticate(request, username = username, password = password)
         if user is not None:
+            login(request, user)
             message = "You are logged in..."
         else:
-            message = "Invalide credentials"
-    
+            message = "Invalid credentials"
     return render(request,'login.html',{'message': message})
 
-def register(request):
+def register_view(request):
     message = ""
+    is_created = False
     if request.method == 'POST':
         username = request.POST['username']
         password1 = request.POST['password1']
@@ -33,7 +34,13 @@ def register(request):
                 password = password1
                 )
                 message = "Account Created Successfully!"
+                is_created = True
             else:
                 message = "Passwords do not match!"
              
-    return render(request, 'register.html', {'message' : message})
+    return render(request, 'register.html', {'message' : message, 'is_created': is_created})
+
+
+def logout_view(request):
+    logout(request)
+    return render(request,'logout.html')
