@@ -22,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = secrets_file.secret
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '%jq7o_q!n+5ix@=krz=%nt-==cwhds1h+1bm*z7p9-39dbwt3_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'www.mysite.com']
 ALLOWED_HOSTS = []
@@ -143,3 +143,7 @@ STATIC_URL = '/static/'
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+# Simplified static file serving.
+# https://warehouse.python.org/project/whitenoise/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
