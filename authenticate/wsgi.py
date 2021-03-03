@@ -9,10 +9,10 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/wsgi/
 
 import os
 from django.core.wsgi import get_wsgi_application
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'authenticate.settings')
 
